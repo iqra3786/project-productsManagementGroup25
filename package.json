@@ -1,0 +1,19 @@
+{
+  "name": "project-productsmanagementgroup25",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iqra3786/project-productsManagementGroup25.git"
+  },
+  "author": "IA I KS ML",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iqra3786/project-productsManagementGroup25/issues"
+  },
+  "homepage": "https://github.com/iqra3786/project-productsManagementGroup25#readme"
+}

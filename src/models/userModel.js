@@ -47,20 +47,19 @@ const userSchema = new mongoose.Schema({
             }
         },
         billing : {
-            shipping:{
-                street : {
-                    type:String,
-                    required : true
-                },
-                city : {
-                    type:String,
-                    required : true
-                },
-                pincode : {
-                    type:Number,
-                    required : true
-                }
+            street : {
+                type:String,
+                // required : true
+            },
+            city : {
+                type:String,
+                // required : true
+            },
+            pincode : {
+                type:Number,
+                // required : true
             }
+            
         }
     }
 

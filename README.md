@@ -40,6 +40,7 @@ User Model
   updatedAt: {timestamp}
 }
 User APIs
+
 POST /register
 Create a user document from request body. Request body must contain image.
 Upload image to S3 bucket and save it's public url in user document.
@@ -75,6 +76,7 @@ On error - Return a suitable error message with a valid HTTP status code. The re
         "__v": 0
     }
 }
+
 POST /login
 Allow an user to login with their email and password.
 On a successful login attempt return the userId and a JWT token contatining the userId, exp, iat.
@@ -91,6 +93,7 @@ On error - Return a suitable error message with a valid HTTP status code. The re
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTYyODc2YWJkY2I3MGFmZWVhZjljZjUiLCJpYXQiOjE2MzM4NDczNzYsImV4cCI6MTYzMzg4MzM3Nn0.PgcBPLLg4J01Hyin-zR6BCk7JHBY-RpuWMG_oIK7aV8"
     }
 }
+
 GET /user/:userId/profile (Authentication required)
 Allow an user to fetch details of their profile.
 Make sure that userId in url param and in token is same
@@ -125,6 +128,7 @@ On error - Return a suitable error message with a valid HTTP status code. The re
         "__v": 0
     }
 }
+
 PUT /user/:userId/profile (Authentication and Authorization required)
 Allow an user to update their profile.
 A user can update all the fields

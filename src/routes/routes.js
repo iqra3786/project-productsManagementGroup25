@@ -6,6 +6,9 @@ router.get('/test', async function(req,res){
     res.send("Test success")
 })
 
+router.get('/user/:userId/profile', userController.getUserData)
+
+
 router.all('/*', async function(req,res){
     res.send("Provided route url is wrong")
 })

@@ -12,7 +12,8 @@ const {
   isValidPhone,
   isValidPassword,
   isvalidPincode,
-  isValidStreet
+  isValidStreet,
+  isValidString
 } = require("../validator/validation");
 
 const createUser = async function (req, res) {

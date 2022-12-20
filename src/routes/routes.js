@@ -1,5 +1,5 @@
 const express = require('express')
-const {createUser, userLogin, getUserById}= require("../controller/UserController")
+const {createUser, userLogin, getUserById,updateUser}= require("../controller/UserController")
 const router = express.Router()
 const mid = require('../middleware/midware')
 

@@ -66,8 +66,15 @@ const isValidStreet = function (street) {
   let streets = /^[#.0-9a-zA-Z\s,-]+$/;
   return streets.test(street);
 };
+
+const isValidString=function(string){
+  if (typeof value == 'string' && value.trim().length === 0) return false;
+    return true;
+}
+
+
 //=============================// module exports //==============================
 
-module.exports = { isValidStreet,valid,regForUrl,isValidEmail, isValidName, isValidPhone, isValidPassword, isvalidPincode }
+module.exports = { isValidString,isValidStreet,valid,regForUrl,isValidEmail, isValidName, isValidPhone, isValidPassword, isvalidPincode }
 
 

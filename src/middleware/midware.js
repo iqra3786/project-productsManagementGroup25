@@ -8,7 +8,7 @@ const authentication = async function(req, res, next){
     let fetchToken = token.split(" ")[1]
     // console.log(fetchToken)
     
-    jwt.verify(fetchToken,"passord", function(err,tokenVerify){
+    jwt.verify(fetchToken,"password", function(err,tokenVerify){
         if(err){
             return res.status(401).send({status:false, message:"Token is invalid or expired"})
         }else{

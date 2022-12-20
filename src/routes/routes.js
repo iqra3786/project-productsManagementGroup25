@@ -11,6 +11,7 @@ router.get('/test', async function(req,res){
 router.post("/register",createUser )
 router.post("/login",userLogin )
 router.get("/user/:userId/profile", mid.authentication, getUserById)
+router.put('/user/:userId/profile', mid.authentication, mid.authorization, updateUser)
 
 
 router.all('/*', function(req, res){

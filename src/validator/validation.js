@@ -86,8 +86,17 @@ const isValidInstallment = function(value){
   return regex.test(value)
 }
 
+const isValidImg = (img) => {
+  return (/\.(gif|jpe?g|tiff?|png|webp|bmp)$/i).test(img)
+}
+
+const isValidTitle = function (value) {
+  return (/^[a-zA-Z][a-zA-Z0-9 $!-_#@%&\.]+$/).test(value)  
+     
+}
+
 //=============================// module exports //==============================
 
-module.exports = { isValidString,isValidStreet,valid,regForUrl,isValidEmail, isValidName, isValidPhone, isValidPassword, isvalidPincode, isValidPrice, isValidStyle, isValidInstallment}
+module.exports = { isValidString,isValidStreet,valid,regForUrl,isValidEmail, isValidName, isValidPhone, isValidPassword, isvalidPincode, isValidPrice, isValidStyle, isValidInstallment, isValidImg, isValidTitle}
 
 

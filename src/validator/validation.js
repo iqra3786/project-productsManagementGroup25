@@ -73,18 +73,21 @@ const isValidString=function(string){
 }
 
 const isValidPrice = function(price){
-  if(typeof(price)==='number' && price == 0) return false;
-  if(typeof(price)==='string') return false;
-  return true;
+  const regex = /^[1-9]\d*(\.\d+)?$/   
+  return regex.test(price)
 }
 
-const isValidSize = function(size){
-  if(typeof(size)==='string' && size!="S" && size!="XS" && size!="M" && size!="X" && size!="L" && size!="XXL" && size!="XL")return false;
-  // if(typeof(size)==='ob' && size!="S" && size!="XS" && size!="M" && size!="X" && size!="L" && size!="XXL" && size!="XL")return false;
-  return true
+const isValidStyle = function(style){
+  const regex = /^([a-zA-z\s]{1,100})$/   
+  return regex.test(style)
 }
+const isValidInstallment = function(value){
+  const regex = /^[1-9]{1,2}$/   
+  return regex.test(value)
+}
+
 //=============================// module exports //==============================
 
-module.exports = { isValidString,isValidStreet,valid,regForUrl,isValidEmail, isValidName, isValidPhone, isValidPassword, isvalidPincode, isValidPrice, isValidSize }
+module.exports = { isValidString,isValidStreet,valid,regForUrl,isValidEmail, isValidName, isValidPhone, isValidPassword, isvalidPincode, isValidPrice, isValidStyle, isValidInstallment}
 
 

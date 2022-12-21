@@ -30,6 +30,7 @@ const createUser = async function (req, res) {
     }
     
     let { fname, lname, email, phone, password, address, profileImage } = data;
+    if(!fname)return res.status(400).send({status:false, message:"fname is required"})
     if (!valid(fname)) {
       return res.status(400).send({ status: "false", message: "fname must be present" });
     }

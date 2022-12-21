@@ -1,5 +1,5 @@
 const express = require('express')
-const {createUser, userLogin, getUserById,updateUser}= require("../controller/UserController")
+const {createUser, userLogin, getUserById,updateUser,createProduct}= require("../controller/UserController")
 const router = express.Router()
 const mid = require('../middleware/midware')
 
@@ -13,9 +13,8 @@ router.post("/login",userLogin )
 router.get("/user/:userId/profile", mid.authentication, getUserById)
 router.put('/user/:userId/profile', mid.authentication, mid.authorization, updateUser)
 
+router.post("/products", createProduct)
 
-router.all('/*', function(req, res){
-    res.status(400).send({status:false, message:"Provided route url is wrong"})
-})
+
 
 module.exports = router

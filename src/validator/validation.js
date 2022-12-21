@@ -72,9 +72,19 @@ const isValidString=function(string){
     return true;
 }
 
+const isValidPrice = function(price){
+  if(typeof(price)==='number' && price == 0) return false;
+  if(typeof(price)==='string') return false;
+  return true;
+}
 
+const isValidSize = function(size){
+  if(typeof(size)==='string' && size!="S" && size!="XS" && size!="M" && size!="X" && size!="L" && size!="XXL" && size!="XL")return false;
+  // if(typeof(size)==='ob' && size!="S" && size!="XS" && size!="M" && size!="X" && size!="L" && size!="XXL" && size!="XL")return false;
+  return true
+}
 //=============================// module exports //==============================
 
-module.exports = { isValidString,isValidStreet,valid,regForUrl,isValidEmail, isValidName, isValidPhone, isValidPassword, isvalidPincode }
+module.exports = { isValidString,isValidStreet,valid,regForUrl,isValidEmail, isValidName, isValidPhone, isValidPassword, isvalidPincode, isValidPrice, isValidSize }
 
 

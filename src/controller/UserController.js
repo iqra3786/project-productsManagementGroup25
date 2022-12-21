@@ -1,4 +1,5 @@
 const userModel = require("../models/userModel");
+const productModel = require("../models/productModel")
 const jwt = require("jsonwebtoken")
 const mongoose = require("mongoose")
 
@@ -13,7 +14,9 @@ const {
   isValidPassword,
   isvalidPincode,
   isValidStreet,
-  isValidString
+  isValidString,
+  isValidPrice,
+  isValidSize
 } = require("../validator/validation");
 
 const createUser = async function (req, res) {
@@ -325,8 +328,9 @@ const updateUser = async function (req, res) {
 
   }
   catch (err) {
-     return res.status(500).send({ status: false, message: err.message })
+    return res.status(500).send({ status: false, message: err.message })
   }
 }
 
-module.exports = { userLogin, createUser, getUserById, updateUser };
+
+module.exports = { userLogin, createUser, getUserById, updateUser, createProduct };

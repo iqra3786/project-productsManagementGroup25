@@ -333,4 +333,4 @@ const updateUser = async function (req, res) {
 }
 
 
-module.exports = { userLogin, createUser, getUserById, updateUser, createProduct };
+module.exports = { userLogin, createUser, getUserById, updateUser };

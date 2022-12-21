@@ -14,9 +14,7 @@ const {
   isValidPassword,
   isvalidPincode,
   isValidStreet,
-  isValidString,
-  isValidPrice,
-  isValidSize
+  isValidString
 } = require("../validator/validation");
 
 const createUser = async function (req, res) {
@@ -68,13 +66,6 @@ const createUser = async function (req, res) {
     if (!valid(address)) {
       return res.status(400).send({ status: "false", message: "Address must be present" });
     }
-
-
-
-
-
-
-
 
     // ------- Address Validation  --------
     if (address) {
@@ -129,7 +120,6 @@ const createUser = async function (req, res) {
     data.password = hash
     // console.log(hash)
 
-
     let emailExists = await userModel.findOne({ email });
     if (emailExists) {
       return res.status(400).send({ status: "false", message: "Email is already in use" });
@@ -144,9 +134,6 @@ const createUser = async function (req, res) {
     } else {
       res.status(400).send({ msg: "ProfileImage is Mandatory" });
     }
-
-
-
 
     let savedUser = await userModel.create(data);
     return res.status(201).send({
@@ -179,10 +166,6 @@ const userLogin = async function (req, res) {
         .status(400)
         .send({ status: false, message: "Please enter password" });
 
-    // if(!(isValidPassword(password)))return res.status(400).send({status:false, message:"Invalid password format"})
-
-
-
     const Login = await userModel.findOne({ email });
     if (!Login) {
       return res.status(404).send({ status: false, message: "Email Id does Not exist" });
@@ -209,12 +192,6 @@ const userLogin = async function (req, res) {
 const getUserById = async function (req, res) {
   try {
     let userId = req.params.userId;
-    // let token = req.headers["authorization"]
-    // if(!token)return res.status(400).send({status:false, message:"Bearer Token must be present in header"})
-    // console.log(token)
-
-    // let fetchToken = token.split(" ")[1]
-    // console.log(fetchToken)
 
     if (!userId) {
       return res.status(400).send({ status: false, message: "Please provide userid" })
@@ -241,7 +218,6 @@ const updateUser = async function (req, res) {
      let data = req.body
      let files=req.files
     
-        
      if (!valid(data)) return res.status(400).send({ status: false, message: "please provide data inside request body" })
 
      let updateData = {}

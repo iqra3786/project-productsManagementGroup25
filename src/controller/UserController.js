@@ -190,7 +190,7 @@ const userLogin = async function (req, res) {
     let hash = Login.password
     bcrypt.compare(password, hash, function (err, result) {
       if (result) {
-        let token = jwt.sign({ userId: Login._id }, "password", { expiresIn: "1hr" })
+        let token = jwt.sign({ userId: Login._id }, "password", { expiresIn: "36hr" })
         res.setHeader("x-api-key", token)
         return res.status(200).send({ status: true, message: "Login Successfull", data: { userId: Login._id, token: token } })
       }

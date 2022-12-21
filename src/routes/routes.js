@@ -2,7 +2,7 @@ const express = require('express')
 const {createUser, userLogin, getUserById,updateUser}= require("../controller/userController")
 const router = express.Router()
 const mid = require('../middleware/midware')
-const {getProductsByFilter, createProduct, getProductByID}= require("../controller/productController")
+const {getProductsByFilter, createProduct, getProductByID,updateProduct,deleteProduct}= require("../controller/productController")
 
 router.get('/test', async function(req,res){
     res.send("Test success")
@@ -18,6 +18,8 @@ router.put('/user/:userId/profile', mid.authentication, mid.authorization, updat
 router.post("/products", createProduct)
 router.get("/products", getProductsByFilter)
 router.get("/products/:productId",getProductByID)
+router.put('/products/:productId',updateProduct)
+router.delete('/products/:productId',deleteProduct)
 
 
 

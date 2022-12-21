@@ -83,8 +83,21 @@ const isValidSize = function(size){
   // if(typeof(size)==='ob' && size!="S" && size!="XS" && size!="M" && size!="X" && size!="L" && size!="XXL" && size!="XL")return false;
   return true
 }
+
+const isValidImg = (img) => {
+  return (/\.(gif|jpe?g|tiff?|png|webp|bmp)$/i).test(img)
+}
+
+const isValidTitle = function (value) {
+  return (/^[a-zA-Z][a-zA-Z0-9 $!-_#@%&\.]+$/).test(value)  
+     
+}
+
+const isValidStyle = function (value) {
+  return (/^[a-zA-Z _.-]+$/).test(value)        
+}
 //=============================// module exports //==============================
 
-module.exports = { isValidString,isValidStreet,valid,regForUrl,isValidEmail, isValidName, isValidPhone, isValidPassword, isvalidPincode, isValidPrice, isValidSize }
+module.exports = {isValidImg,isValidStyle,isValidTitle, isValidString,isValidStreet,valid,regForUrl,isValidEmail, isValidName, isValidPhone, isValidPassword, isvalidPincode, isValidPrice, isValidSize }
 
 

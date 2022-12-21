@@ -244,7 +244,7 @@ const updateUser = async function (req, res) {
      if (!valid(data)) return res.status(400).send({ status: false, message: "please provide data inside request body" })
 
      let updateData = {}
-     let { fname, lname, email, phone, password,profileImage, address } = data
+     let { fname, lname, email, phone, password, address, profileImage} = data
      
      for(let key in req.body){
         if(req.body[key].trim().length==0){

@@ -23,16 +23,20 @@ const createProduct = async function(req,res){
       if(!(isValidString(currencyFormat)))return res.status(400).send({status:false, message:"currencyFormat is empty"})
 
       /*---------------------performing validation & checking valid available size value--------------------*/
-      let arr = availableSizes.split(',')
-      let wants = ["S", "XS","M","X", "L","XXL", "XL"]
-      let r = []
-      for(let i of arr){
-        if(wants.includes(i)){
-          r.push(i)
-        }
+      if(availableSizes){
+        let arr = availableSizes.split(',')
+        let wants = ["S", "XS","M","X", "L","XXL", "XL"]
+        let r = []
+            for(let j=0; j<arr.length; j++){
+              if(r.indexOf(arr[j])==-1){
+                if(wants.includes(arr[j])){
+                  r.push(arr[j])
+                }
+              }
+            }
+        data.availableSizes = r
+        if(r.length==0)return res.status(400).send({status:false, message:"please provide valid size ex: S, XS,M,X, L,XXL, XL"}) 
       }
-      data.availableSizes = r
-      if(r.length==0)return res.status(400).send({status:false, message:"please provide valid size ex: S, XS,M,X, L,XXL, XL"}) 
 
       /*-------------------------checking regex validation ---------------------------*/
       if(!(isValidPrice(price)))return res.status(400).send({status:false, message:"Invalid price value"})
@@ -185,12 +189,24 @@ const getProductByID = async function (req, res) {
             if (!isValidStyle(style)) return res.status(400).send({ status: false, msg: "enter valid style" })
         }
 
-        if (availableSizes) {
-            if (!isValidSize(availableSizes.trim())) return res.status(400).send({ status: false, msg: "enter valid availableSizes from 'S', 'XS', 'M', 'X', 'L', 'XXL', 'XL'" })
-        }
+         /*---------------------performing validation & checking valid available size value--------------------*/
+      if(availableSizes){
+        let arr = availableSizes.split(',')
+        let wants = ["S", "XS","M","X", "L","XXL", "XL"]
+        let r = []
+            for(let j=0; j<arr.length; j++){
+              if(r.indexOf(arr[j])==-1){
+                if(wants.includes(arr[j])){
+                  r.push(arr[j])
+                }
+              }
+            }
+        data.availableSizes = r
+        if(r.length==0)return res.status(400).send({status:false, message:"please provide valid size ex: S, XS,M,X, L,XXL, XL"}) 
+      }
 
         if (installments) {
-            if (!(/^[0-9]+$/.test(installments.trim()))) return res.status(400).send({ status: false, message: "Invalid value for installments" })
+            if (!(isValidInstallment(installments))) return res.status(400).send({ status: false, message: "Please provide valid installment between one and two numbers" })
         }
 
         if (isDeleted) {

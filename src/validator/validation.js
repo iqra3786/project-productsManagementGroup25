@@ -6,11 +6,11 @@ const valid=function(value){
     return false
     return true
 }
-const regForUrl=function(value){
-    let re=/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/
-    return re.test(value)
+// const regForUrl=function(value){
+//     let re=/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/
+//     return re.test(value)
 
-}
+// }
 //=========================// isValidEmail //===================================
 
 const isValidEmail = function (value) {

@@ -4,6 +4,7 @@ const router = express.Router()
 const mid = require('../middleware/midware')
 const {getProductsByFilter, createProduct, getProductByID,updateProduct,deleteProduct}= require("../controller/productController")
 const {createCart, getCartDetails, updateCart ,deleteCart} = require('../controller/cartController')
+const {createOrder} = require('../controller/orderController')
 
 router.get('/test', async function(req,res){
     res.send("Test success")
@@ -28,5 +29,7 @@ router.get("/users/:userId/cart", mid.authentication, mid.authorization , getCar
 router.put('/users/:userId/cart', mid.authentication, mid.authorization , updateCart)
 router.delete("/users/:userId/cart", mid.authentication, mid.authorization , deleteCart)
 
+//--------------------------- order---------------------------------------//
+router.post("/users/:userId/orders",createOrder)
 
 module.exports = router

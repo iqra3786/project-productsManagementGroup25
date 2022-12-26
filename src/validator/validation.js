@@ -1,4 +1,4 @@
-
+const {isValidObjectId} = require('mongoose')
 const valid=function(value){
     if(typeof value=="number" || typeof value==null || typeof value==undefined)
     return false
@@ -95,8 +95,12 @@ const isValidTitle = function (value) {
      
 }
 
+const isIdValid = function(val){
+  if(isValidObjectId(val) == false) return false
+  return true
+}
 //=============================// module exports //==============================
 
-module.exports = { isValidString,isValidStreet,valid,regForUrl,isValidEmail, isValidName, isValidPhone, isValidPassword, isvalidPincode, isValidPrice, isValidStyle, isValidInstallment, isValidImg, isValidTitle}
+module.exports = { isValidString,isValidStreet,valid,regForUrl,isValidEmail, isValidName, isValidPhone, isValidPassword, isvalidPincode, isValidPrice, isValidStyle, isValidInstallment, isValidImg, isValidTitle, isIdValid}
 
 

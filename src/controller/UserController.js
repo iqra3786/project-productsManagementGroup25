@@ -29,6 +29,11 @@ const createUser = async function (req, res) {
     
     let { fname, lname, email, phone, password, address, profileImage } = data;
     if(!fname)return res.status(400).send({status:false, message:"fname is required"})
+    if(!lname)return res.status(400).send({status:false, message:"lname is required"})
+    if(!email)return res.status(400).send({status:false, message:"email is required"})
+    if(!phone)return res.status(400).send({status:false, message:"phone is required"})
+    if(!password)return res.status(400).send({status:false, message:"password is required"})
+
     if (!valid(fname)) {
       return res.status(400).send({ status: "false", message: "fname must be present" });
     }
@@ -45,7 +50,7 @@ const createUser = async function (req, res) {
       return res.status(400).send({ status: "false", message: "email must be present" });
     }
     if (!isValidEmail(email)) {
-      return res.status(400).send({ status: "false", message: "email must be present" });
+      return res.status(400).send({ status: "false", message: "email format is invalid" });
     }
 
     if (!valid(phone)) {
@@ -58,11 +63,9 @@ const createUser = async function (req, res) {
       return res.status(400).send({ status: "false", message: "password must be present" });
     }
     if (!isValidPassword(password)) {
-      return res.status(400).send({ status: "false", message: "password must be present" });
+      return res.status(400).send({ status: "false", message: "password must be 8 to 15 characters in length" });
     }
-    if (password.length < 8 || password.length > 15) {
-      return res.status(400).send({ status: false, message: "Length of password is not correct" })
-    }
+    
     if (!valid(address)) {
       return res.status(400).send({ status: "false", message: "Address must be present" });
     }
@@ -132,7 +135,7 @@ const createUser = async function (req, res) {
       let uploadedFileURL = await uploadFile(files[0]);
       data.profileImage = uploadedFileURL
     } else {
-      res.status(400).send({ msg: "ProfileImage is Mandatory" });
+      res.status(400).send({status:false, msg: "ProfileImage is Mandatory" });
     }
 
     let savedUser = await userModel.create(data);
@@ -292,14 +295,28 @@ const updateUser = async function (req, res) {
               address['billing.pincode'] = pincode
            }
         }
-        updateData["address"] = address
+        if(address.shipping && address.billing){
+          updateData["address"] = address
+        }
+        else if(address.shipping){
+          let findBilling = await userModel.findOne({_id:userId})
+          let billing = findBilling.address.billing
+          updateData["address.billing"] = billing
+          updateData["address.shipping"] = address.shipping
+        }
+        else{
+          let findshipping = await userModel.findOne({_id:userId})
+          let shipping = findshipping.address.shipping
+          updateData["address.shipping"] = shipping
+          updateData["address.billing"] = address.billing
+        }
      }
 
-    if(profileImage){
       if(files && files.length>0){
+        if(files[0].fieldname != "profileImage")return res.status(400).send({status:false, message:"profile field name should be profileImage"})
         let uploadedFileURL = await uploadFile(files[0]);
         updateData['profileImage']= uploadedFileURL
-      }}
+      }
      const updateduserprofile = await userModel.findOneAndUpdate({ _id:userId }, {$set:updateData}, { new: true })
      return res.status(200).send({ status: true, message: "Success", data: updateduserprofile })
 

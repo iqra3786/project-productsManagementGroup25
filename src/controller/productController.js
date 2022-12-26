@@ -81,7 +81,7 @@ const getProductsByFilter=async function(req,res){
      let data = {isDeleted:false}
      if(size){
       size=size.toUpperCase()
-         data['availableSizes']= {$in: size}
+         data['availableSizes']= {$in: size}    // "availablesuzw": {$in: [XXl, N]}
      } 
      if(name){
          

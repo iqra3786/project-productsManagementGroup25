@@ -208,22 +208,26 @@ Sorted by product price in ascending or descending. The key value pair will look
 Response format
 On success - Return HTTP status 200. Also return the product documents. The response should be a JSON object like this
 On error - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like this
+
 GET /products/:productId
 Returns product details by product id
 Response format
 On success - Return HTTP status 200. Also return the product documents. The response should be a JSON object like this
 On error - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like this
+
 PUT /products/:productId
 Updates a product by changing at least one or all fields
 Check if the productId exists (must have isDeleted false and is present in collection). If it doesn't, return an HTTP status 404 with a response body like this
 Response format
 On success - Return HTTP status 200. Also return the updated product document. The response should be a JSON object like this
 On error - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like this
+
 DELETE /products/:productId
 Deletes a product by product id if it's not already deleted
 Response format
 On success - Return HTTP status 200. The response should be a JSON object like this
 On error - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like this
+
 FEATURE III - Cart
 Models
 Cart Model
@@ -253,6 +257,7 @@ Get product(s) details in response body.
 Response format
 On success - Return HTTP status 201. Also return the cart document. The response should be a JSON object like this
 On error - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like this
+
 PUT /users/:userId/cart (Remove product / Reduce a product's quantity from the cart)
 Updates a cart by either decrementing the quantity of a product by 1 or deleting a product from the cart.
 Get cart id in request body.
@@ -267,6 +272,7 @@ Check if the productId exists and is not deleted before updating the cart.
 Response format
 On success - Return HTTP status 200. Also return the updated cart document. The response should be a JSON object like this
 On error - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like this
+
 GET /users/:userId/cart
 Returns cart summary of the user.
 Make sure that cart exist.
@@ -276,6 +282,7 @@ Get product(s) details in response body.
 Response format
 On success - Return HTTP status 200. Return the cart document. The response should be a JSON object like this
 On error - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like this
+
 DELETE /users/:userId/cart
 Deletes the cart for the user.
 Make sure that cart exist.
@@ -285,6 +292,7 @@ cart deleting means array of items is empty, totalItems is 0, totalPrice is 0.
 Response format
 On success - Return HTTP status 204. Return a suitable message. The response should be a JSON object like this
 On error - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like this
+
 FEATURE IV - Order
 Models
 Order Model
@@ -313,6 +321,7 @@ Get cart details in the request body
 Response format
 On success - Return HTTP status 200. Also return the order document. The response should be a JSON object like this
 On error - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like this
+
 PUT /users/:userId/orders
 Updates an order status
 Make sure the userId in params and in JWT token match.
@@ -323,6 +332,7 @@ Make sure that only a cancellable order could be canceled. Else send an appropri
 Response format
 On success - Return HTTP status 200. Also return the updated order document. The response should be a JSON object like this
 On error - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like this
+
 Testing
 To test these apis create a new collection in Postman named Project 5 Shopping Cart
 Each api should have a new request in this collection

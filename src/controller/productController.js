@@ -7,8 +7,9 @@ const createProduct = async function(req,res){
     try{
       let data = req.body
       let files = req.files 
-      let {title,description,price,currencyId,currencyFormat,productImage,availableSizes} = data
-    
+      let {title,description,currencyId,currencyFormat,productImage,availableSizes} = data
+       let {price}=data
+      
       /*------------------------- Checking fields are present or not -----------------------------------*/
       if(!title)return res.status(400).send({status:false, message:"title is required"})
       if(!description)return res.status(400).send({status:false, message:"description is required"})
@@ -46,7 +47,12 @@ const createProduct = async function(req,res){
       }
       
       if(data.installments){
-        if(!(isValidInstallment(data.installments)))return res.status(400).send({status:false, message:"Please provide valid installment between one and two numbers"})
+        if(!(isValidInstallment(data.installments)))return res.status(400).send({status:false, message:"Please provide valid installment in single or double digit format excluding 0"})
+      }
+      if(data.isFreeShipping){
+        if(data.isFreeShipping!='true'&& data.isFreeShipping!='false'){
+          return res.status(400).send({status:false,message:"isfreeshipping must be either true or false at the time of creation of product"})
+        }
       }
 
       /*-------------------------some more validation---------------------------*/
@@ -81,7 +87,17 @@ const getProductsByFilter=async function(req,res){
      let data = {isDeleted:false}
      if(size){
       size=size.toUpperCase()
-         data['availableSizes']= {$in: size}    // "availablesuzw": {$in: [XXl, N]}
+        let arr = size.split(',')
+        let wants = ["S", "XS","M","X", "L","XXL", "XL"]
+        let r = []
+            for(let j=0; j<arr.length; j++){
+              if(r.indexOf(arr[j])==-1){
+                if(wants.includes(arr[j])){
+                  r.push(arr[j])
+                }
+            }}
+
+         data['availableSizes']= {$in: r}    // "availablesuzw": {$in: [XXl, N]}
      } 
      if(name){
          
@@ -136,6 +152,11 @@ const getProductByID = async function (req, res) {
         let updateData = req.body
         let files = req.files
         console.log(files)
+        if(Object.keys(updateData).length== 0 && files.length==0){
+          return res.status(400).send({status:false,message:"please enter at least one key to update data"})
+        }
+    
+        
         if (!(valid(updateData) || files)) return res.status(400).send({ status: false, msg: "please input some data to update" })
         if(files.length>0){
         if (!isValidImg(files[0].originalname)) { return res.status(400).send({ status: false, message: "Image Should be of JPEG/ JPG/ PNG" }); }
@@ -146,11 +167,11 @@ const getProductByID = async function (req, res) {
 
         let { title, description, price, currencyId, currencyFormat, isFreeShipping, style, availableSizes, installments, productImage, deletedAt, isDeleted } = updateData
 
-        for(let key in req.body){
-            if(req.body[key].trim().length==0){
-                return res.status(400).send({status:false, message:`${key} can't be empty`})
-            }
-        }
+        // for(let key in req.body){
+        //     if(req.body[key].trim().length==0){
+        //         return res.status(400).send({status:false, message:`${key} can't be empty`})
+        //     }
+        // }
 
 
         if (title) {
@@ -180,11 +201,17 @@ const getProductByID = async function (req, res) {
                 return res.status(400).send({ status: false, message: "Please enter a boolean value for isFreeShipping" })
         }
          
-        
-         let uploadedFileURL = await uploadFile(files[0]);
-          updateData.productImage= uploadedFileURL
-       
 
+
+        if(files.length>0){
+          if(files[0].fieldname!="productImage"){
+          return res.status(400).send({status:false,message:"product upload image key name should be productImage"})
+          }
+          let uploadedFileURL = await uploadFile(files[0]);
+          updateData.productImage= uploadedFileURL
+        }
+        
+    
         if (style) {
             if (!isValidStyle(style)) return res.status(400).send({ status: false, msg: "enter valid style" })
         }
@@ -201,7 +228,7 @@ const getProductByID = async function (req, res) {
                 }
               }
             }
-        data.availableSizes = r
+        updateData.availableSizes = r
         if(r.length==0)return res.status(400).send({status:false, message:"please provide valid size ex: S, XS,M,X, L,XXL, XL"}) 
       }
 
@@ -231,7 +258,7 @@ const getProductByID = async function (req, res) {
         if (ProductData.isDeleted == true) return res.status(400).send({ status: false, msg: "this product is already deleted" })
         let deletedProduct = await productModel.findOneAndUpdate({ _id: productId, isDeleted: false }, { $set: { isDeleted: true } }, { new: true });
 
-        return res.status(200).send({ status: true, message: "Success", data: deletedProduct })
+        return res.status(200).send({ status: true, message: "Success"})
 
     } catch (err) {
         return res.status(500).send({ status: false, message: err.message })

@@ -82,7 +82,7 @@ const isValidStyle = function(style){
   return regex.test(style)
 }
 const isValidInstallment = function(value){
-  const regex = /^[1-9]{1,2}$/   
+  const regex = /^[0-9]{1,2}$/   
   return regex.test(value)
 }
 

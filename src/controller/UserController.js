@@ -63,7 +63,7 @@ const createUser = async function (req, res) {
       return res.status(400).send({ status: "false", message: "password must be present" });
     }
     if (!isValidPassword(password)) {
-      return res.status(400).send({ status: "false", message: "password must be 8 to 15 characters in length" });
+      return res.status(400).send({ status: "false", message: "password must be 8 to 15 characters in length with atleast one special character,Number and Alphabate" });
     }
     
     if (!valid(address)) {
@@ -71,11 +71,39 @@ const createUser = async function (req, res) {
     }
 
     // ------- Address Validation  --------
+    
     if (address) {
       data.address = JSON.parse(data.address);
+      if(!data.address.shipping){
+        return res.status(400).send({status:false,message:"Shipping field is mandatory"})
+      }
+      if(!data.address.billing){
+        return res.status(400).send({status:false,message:"Billing field is mandatory"})
+      }
+      var {street,city,pincode}=data.address.shipping
+      console.log(street)
+      console.log(city)
+    
+
+      if(!(street)){
+        return res.status(400).send({status:false,message:"Street is required"})
+      }
+      if(!city){
+        return res.status(400).send({status:false,message:"City is required"})
+      }
+      if(!pincode){
+        return res.status(400).send({status:false,message:"Pincode is required"})
+      }
+      
       console.log(data.address)
       if (address.shipping) {
-        console.log(address.shipping)
+
+        // console.log(address.shipping)
+        // console.log(data.address.shipping.street)
+
+     
+        //-------validations---------//
+
         if (!valid(address.shipping.street)) {
           return res.status(400).send({ status: "false", message: "street must be present" });
         }
@@ -95,7 +123,35 @@ const createUser = async function (req, res) {
           return res.status(400).send({ status: "false", message: "pincode should be digits only" });
         }
       }
+      //------------billing validation-----//
+
+      
+      var {street,city,pincode}=data.address.billing
+      if(!(street)){
+        return res.status(400).send({status:false,message:"Street is required"})
+      }
+      if(!city){
+        return res.status(400).send({status:false,message:"City is required"})
+      }
+      if(!pincode){
+        return res.status(400).send({status:false,message:"Pincode is required"})
+      }
+      
       if (address.billing) {
+
+
+
+        if(!address.billing.street){
+          return res.status(400).send({status:false,message:"Street is required"})
+        }
+        if(!address.billing.city){
+          return res.status(400).send({status:false,message:"City is required"})
+        }
+        if(!address.billing.pincode){
+          return res.status(400).send({status:false,message:"Pincode is required"})
+        }
+
+        //----------
         if (!valid(address.billing.street)) {
           return res.status(400).send({ status: "false", message: "street must be present" });
         }
@@ -135,7 +191,7 @@ const createUser = async function (req, res) {
       let uploadedFileURL = await uploadFile(files[0]);
       data.profileImage = uploadedFileURL
     } else {
-      res.status(400).send({status:false, msg: "ProfileImage is Mandatory" });
+      return res.status(400).send({status:false, msg: "ProfileImage is Mandatory" });
     }
 
     let savedUser = await userModel.create(data);
@@ -261,10 +317,16 @@ const updateUser = async function (req, res) {
         const hash = await bcrypt.hash(password, saltRounds);
         updateData['password'] = hash
      }
+     
      if (address) {
       address = JSON.parse(address)
-        if (Object.keys(address).length == 0) return res.status(400).send({ status: false, message: "Please Enter the address in object form" })
+      if (Object.keys(address).length == 0) return res.status(400).send({ status: false, message: "Please Enter the address in object form" })
+     
+      ////////////////////////
+
+     
         if (address.shipping) {
+
            let { street, city, pincode } = address.shipping
            if (street) {
               if (!isValidString(street)) return res.status(400).send({ status: false, message: "Please Enter valid Street" })

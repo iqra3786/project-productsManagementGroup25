@@ -6,11 +6,6 @@ const valid=function(value){
     return false
     return true
 }
-// const regForUrl=function(value){
-//     let re=/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/
-//     return re.test(value)
-
-// }
 //=========================// isValidEmail //===================================
 
 const isValidEmail = function (value) {
@@ -18,13 +13,6 @@ const isValidEmail = function (value) {
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-z\-0-9]+\.)+[a-z]{2,}))$/;
   return emailRegex.test(value)
 };
-
-//============================// idCharacterValid //============================
-
-// const isIdValid = function (value) {
-//   return mongoose.Types.ObjectId.isValid(value); 
-// };
-
 
 //==============================// isValidName //===============================
 
@@ -48,13 +36,6 @@ const isValidPassword = function(password){
   return re.test(password)
 }
 
-
-//==============================// isValid-date //==============================
-
-// const isValidDate = function (date) {
-//   if (typeof date != "string") return false
-//   return moment(date, 'YYYY-MM-DD', true).isValid()
-// }
 //==============================// isValid-pincode //==============================
 
 const isvalidPincode = function (pincode) {
@@ -101,6 +82,6 @@ const isIdValid = function(val){
 }
 //=============================// module exports //==============================
 
-module.exports = { isValidString,isValidStreet,valid,regForUrl,isValidEmail, isValidName, isValidPhone, isValidPassword, isvalidPincode, isValidPrice, isValidStyle, isValidInstallment, isValidImg, isValidTitle, isIdValid}
+module.exports = { isValidString,isValidStreet,valid,isValidEmail, isValidName, isValidPhone, isValidPassword, isvalidPincode, isValidPrice, isValidStyle, isValidInstallment, isValidImg, isValidTitle, isIdValid}
 
 

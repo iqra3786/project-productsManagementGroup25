@@ -35,6 +35,7 @@ const createUser = async function (req, res) {
     if(!email)return res.status(400).send({status:false, message:"email is required"})
     if(!phone)return res.status(400).send({status:false, message:"phone is required"})
     if(!password)return res.status(400).send({status:false, message:"password is required"})
+    if(!address)return res.status(400).send({status:false, message:"address is required"})
 
     if (!valid(fname)) {
       return res.status(400).send({ status: "false", message: "fname must be present" });
@@ -97,7 +98,7 @@ const createUser = async function (req, res) {
         return res.status(400).send({status:false,message:"Pincode is required"})
       }
       
-      console.log(data.address)
+      // console.log(data.address)
       if (address.shipping) {
 
         // console.log(address.shipping)

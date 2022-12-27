@@ -78,9 +78,11 @@ const cancelOrder = async function (req, res){
             return res.status(400).send({ status : false, message : "OrderId is missing"})
          }
          if(!isValidObjectId(orderId)){return res.status(400).send({ status : false, message : "OrderId is invalid"})}
+         
 
         
         let checkstatus=await orderModel.findOne({_id:orderId,isDeleted:false})
+        if(checkstatus.userId.toString()  !==  userId){return res.status(400).send({ status : false, message : "This Oder doesnot belog to this user! "})}
          let cancellable=checkstatus.cancellable
          if(cancellable==false){return res.status(400).send({ status : false, message : "Order is not cancelable"})}
         let newStatus = {}

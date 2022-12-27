@@ -16,7 +16,7 @@ mongoose.connect("mongodb+srv://insh007:Inshad123@firstcluster.p0r04o1.mongodb.n
 
 app.use('/',route)
 app.use('/*', async function(req,res){
-    return res.send("Provided route url is wrong")
+    return res.status(400).send("Provided route url is wrong")
 })
 
 app.listen(3000, function(){

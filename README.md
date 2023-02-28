@@ -1,14 +1,12 @@
-# project-productsManagementGroup25
+# project- E-Commerce ShopMate
 
-Project - Products Management
 Key points
-In this project we will work feature wise. That means we pick one object like user, book, blog, etc at a time. We work through it's feature. The steps would be:
+In this project we will work feature wise. That means we pick one object like user, book, blog, etc at a time. 
+We work through it's feature. The steps would be:
 We create it's model.
 We build it's APIs.
 We test these APIs.
-We deploy these APIs.
-We integrate these APIs with frontend.
-We will repeat steps from Step 1 to Step 5 for each feature in this project.
+
 This project is divided into 4 features namely User, Product, Cart and Order. You need to work on a single feature at a time. Once that is completed as per above mentioned steps. You will be instructed to move to next Feature.
 In this project we are changing how we send token with a request. Instead of using a custom header key like x-api-key, you need to use Authorization header and send the JWT token as Bearer token.
 Create a group database groupXDatabase. You can clean the db you previously used and resue that.
@@ -242,6 +240,7 @@ Cart Model
   createdAt: {timestamp},
   updatedAt: {timestamp},
 }
+
 Cart APIs (authentication required as authorization header - bearer token)
 POST /users/:userId/cart (Add to cart)
 Create a cart for the user if it does not exist. Else add product(s) in cart.
@@ -312,6 +311,7 @@ Order Model
   createdAt: {timestamp},
   updatedAt: {timestamp},
 }
+
 Checkout/Order APIs (Authentication and authorization required)
 POST /users/:userId/orders
 Create an order for the user
@@ -349,12 +349,15 @@ Successful Response structure
 
   }
 }
+
 Error Response structure
 {
   status: false,
   message: ""
 }
+
 Collections
+
 users
 {
   _id: ObjectId("88abc190ef0288abc190ef02"),
@@ -379,6 +382,7 @@ users
   createdAt: "2021-09-17T04:25:07.803Z",
   updatedAt: "2021-09-17T04:25:07.803Z",
 }
+
 products
 {
   _id: ObjectId("88abc190ef0288abc190ef55"),
@@ -397,6 +401,7 @@ products
   createdAt: "2021-09-17T04:25:07.803Z",
   updatedAt: "2021-09-17T04:25:07.803Z",
 }
+
 carts
 {
   "_id": ObjectId("88abc190ef0288abc190ef88"),
@@ -413,6 +418,7 @@ carts
   createdAt: "2021-09-17T04:25:07.803Z",
   updatedAt: "2021-09-17T04:25:07.803Z",
 }
+
 orders
 {
   "_id": ObjectId("88abc190ef0288abc190ef88"),
